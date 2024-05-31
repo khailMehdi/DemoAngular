@@ -2,6 +2,9 @@ import {Component, OnInit} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {observable, observeOn} from "rxjs";
 import {toObservable} from "@angular/core/rxjs-interop";
+import {ProductService} from "../services/product.service";
+
+
 
 @Component({
   selector: 'app-product',
@@ -9,15 +12,16 @@ import {toObservable} from "@angular/core/rxjs-interop";
   styleUrl: './product.component.css'
 })
 export class ProductComponent implements OnInit{
-  constructor(private http:HttpClient) {
+  constructor(private productService:ProductService) {
   }
   ngOnInit() {
-    this.http.get<Array<any>>("http://localhost:3000/products")
-      .subscribe({
-        next: data => this.products = data,
-        error: err => console.error('Erreur : ', err),
-        complete: () => console.log('Requête terminée')
-      });
+    this.getProducts();
+    // this.http.get<Array<any>>("http://localhost:3000/products")
+    //   .subscribe({
+    //     next: data => this.products = data,
+    //     error: err => console.error('Erreur : ', err),
+    //     complete: () => console.log('Requête terminée')
+    //   });
   }
 
   products : Array<any>  =[
@@ -27,10 +31,10 @@ export class ProductComponent implements OnInit{
 
   ]
   handleCheckProduct(product: any) {
-    const url = `http://localhost:3000/products/${product.id}`;
-    const body = { checked: !product.checked };
+    // const url = `http://localhost:3000/products/${product.id}`;
+    // const body = { checked: !product.checked };
 
-    this.http.patch(url, body)
+    this.productService.checkProduct(product)
       .subscribe({
         next: (response) => {
           product.checked = !product.checked;
@@ -42,4 +46,15 @@ export class ProductComponent implements OnInit{
       });
   }
 
+
+  private getProducts() {
+    this.productService.getProduct().subscribe({
+      next:data=>{
+        this.products=data
+      },
+      error: err => {
+        console.log(err)
+      }
+    })
+  }
 }
