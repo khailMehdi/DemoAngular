@@ -53,7 +53,9 @@ export class ProductComponent implements OnInit{
         this.products=data
       },
       error: err => {
-        console.log(err)
+        console.log(
+
+        )
       }
     })
   }

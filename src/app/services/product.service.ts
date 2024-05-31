@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 
 import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
+import {Product} from "../Module/product.model";
 
 @Injectable({
   providedIn: 'root'
@@ -9,8 +10,8 @@ import {Observable} from "rxjs";
 export class ProductService {
 
   constructor(private http:HttpClient) { }
-  public getProduct(): Observable<any>{
-    return this.http.get<Array<any>>("http://localhost:3000/products");
+  public getProduct(): Observable<Array<Product>>{
+    return this.http.get<Array<Product>>("http://localhost:3000/products");
 
   }
   public  checkProduct(product:any){
