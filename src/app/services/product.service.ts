@@ -9,12 +9,29 @@ import {Product} from "../Module/product.model";
 })
 export class ProductService {
 
-  constructor(private http:HttpClient) { }
-  public getProduct(): Observable<Array<Product>>{
+  constructor(private http: HttpClient) {
+  }
+
+  public getProduct(): Observable<Array<Product>> {
     return this.http.get<Array<Product>>("http://localhost:3000/products");
+  }
+
+  public checkProduct(product: Product) {
+    return this.http.patch<Product>(`http://localhost:3000/products/${product.id}`,
+      {checked: !product.checked})
+  }
+
+  public deleteProduct(product: Product) {
+    return this.http.delete<Product>(`http://localhost:3000/products/${product.id}`)
+  }
+
+  saveProduct(product: Product): Observable<Product> {
+    return this.http.post<Product>(`http://localhost:3000/products`, product);
 
   }
-  public  checkProduct(product:any){
-return this.http.patch<any>(`http://localhost:3000/products/${product.id}`,{checked:!product.checked})
-}
+  //apiUrl : string ="http://localhost:3000/products"
+  public searchProducts(keyword:string): Observable<Array<Product>> {
+    return this.http.get<Array<Product>>(`http://localhost:3000/products?name_like=${keyword}`);
+   // return this.http.get<Array<Product>>(`${this.apiUrl}?q=${keyword}`);
+  }
 }
