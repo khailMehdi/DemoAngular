@@ -14,6 +14,15 @@ import {Product} from "../Module/product.model";
 })
 export class ProductComponent implements OnInit {
   public keyword: string = '';
+  public totalPages: number = 0;
+  public pageSize : number =4;
+  public currentPages :number=1;
+  public products: Array<Product> = [
+    // {id: 1 ,name :"dell",price:12550,checked:false},
+    // {id: 2 ,name :"HP",price:12850,checked:true},
+    // {id: 3 ,name :"Iphone",price:7850,checked:true},
+
+  ]
 
   constructor(private productService: ProductService) {
   }
@@ -28,12 +37,7 @@ export class ProductComponent implements OnInit {
     //   });
   }
 
-  public products: Array<any> = [
-    // {id: 1 ,name :"dell",price:12550,checked:false},
-    // {id: 2 ,name :"HP",price:12850,checked:true},
-    // {id: 3 ,name :"Iphone",price:7850,checked:true},
 
-  ]
 
   handleCheckProduct(product: any) {
     // const url = `http://localhost:3000/products/${product.id}`;
@@ -53,14 +57,17 @@ export class ProductComponent implements OnInit {
 
 
   private getProducts() {
-    this.productService.getProduct().subscribe({
-      next: data => {
-        this.products = data
+    this.productService.getProducts(this.currentPages,this.pageSize).subscribe({
+      next: (resp) => {
+        this.products = resp.body as Product[];
+        let totalProducts:number=parseInt(resp.headers.get('x-total-count')!,10)
+        this.totalPages=Math.floor(totalProducts/this.pageSize);
+        if (totalProducts % this.pageSize !=0){
+          this.totalPages=this.totalPages+1;
+        }
       },
       error: err => {
-        console.log(
-
-        )
+        console.log(err);
       }
     })
   }
@@ -90,4 +97,17 @@ export class ProductComponent implements OnInit {
       console.log("empty")// Handle empty search query if needed
     }
   }
+
+  getPages(): number[] {
+    console.log(this.getPages());
+
+    return Array.from({ length: this.totalPages }, (_, i) => i + 1);
+  }
+
+  goToPage(page: number): void {
+    // Logic to navigate to the selected page
+    this.currentPages = page;
+    this.getProducts(); // Reload products for the selected page
+  }
+
 }

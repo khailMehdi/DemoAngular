@@ -1,0 +1,52 @@
+{
+  "products": [
+    {
+      "id": "4",
+      "name": "Iphone",
+      "price": 7850,
+      "checked": false
+    },
+    {
+      "id": "8565",
+      "name": "dell",
+      "price": "5014",
+      "checked": false
+    },
+    {
+      "id": "50a3",
+      "name": "sumsang",
+      "price": "012015",
+      "checked": false
+    },
+    {
+      "id": "eec3",
+      "name": "tgfg",
+      "price": "1555",
+      "checked": true
+    },
+    {
+      "id": "e527",
+      "name": "ayoub",
+      "price": "2504",
+      "checked": false
+    },
+    {
+      "id": "4728",
+      "name": "dslqqkg",
+      "price": "1552",
+      "checked": true
+    },
+    {
+      "id": "6e1e",
+      "name": "hgjkl;;l",
+      "price": "44566",
+      "checked": true
+    },
+    {
+      "id": "d5c7",
+      "name": "",
+      "price": 0,
+      "checked": true
+    }
+  ]
+}

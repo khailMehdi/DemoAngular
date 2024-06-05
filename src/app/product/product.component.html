@@ -3,6 +3,7 @@
     <div class="card-body">
 
       <div class="card-body">
+
         <div>
          <input class=" bi-" type="text" [(ngModel)]="keyword">
          <button (click)="searchProduct()"
@@ -35,6 +36,14 @@
         </tr>
         </tbody>
       </table>
+      <ul>
+        <li *ngFor="let page of getPages(); let i = index">
+          <button class="btn btn-outline-success" >
+            {{ page }}
+          </button>
+        </li>
+
+      </ul>
 
     </div>
   </div>

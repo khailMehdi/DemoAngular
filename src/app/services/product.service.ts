@@ -12,8 +12,8 @@ export class ProductService {
   constructor(private http: HttpClient) {
   }
 
-  public getProduct(): Observable<Array<Product>> {
-    return this.http.get<Array<Product>>("http://localhost:3000/products");
+  public getProducts(page : number=1,size:number=4) {
+    return this.http.get(`http://localhost:3000/products?_page=${page}&_limit=${size}`,{observe:"response"});
   }
 
   public checkProduct(product: Product) {
