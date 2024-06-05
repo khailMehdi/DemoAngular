@@ -6,4 +6,4 @@
 <p>3.supprimer un produit </p>
 <img src="Capture/Capture2.png" >
 <p>4.ajouter un produit </p>
-<img src="Capture/Capture3.png" >
+<img src="Capture/Capture3.PNG" >
